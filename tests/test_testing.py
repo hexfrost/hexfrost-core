@@ -7,8 +7,8 @@ import pytest
 import asyncpg
 from sqlalchemy import Column, Integer, String
 
-from src.testing import temporary_database
-from src import DatabaseConnectionSettings
+from testing.temporary_database import temporary_database
+from src import DatabaseConnectionSettings, debug_client
 from sqlalchemy.orm import declarative_base
 
 from tests.fixtures.database import db_settings as settings
@@ -191,7 +191,6 @@ async def test_fastapi_depends_itegration_test(temp_db, db_settings, database_co
         await database_conn.scalar(select(1))
         return {"status": "ok"}
 
-    from src.testing import debug_client
     async with debug_client(app) as client:
         response1 = await client.get('/')
         assert response1.status_code == 200
@@ -201,7 +200,7 @@ async def test_debug_client_negative_test(temp_db, db_settings, database_connect
     from fastapi import FastAPI
     app = FastAPI()
 
-    from src.testing import debug_client
+    from testing.client import debug_client
     async with debug_client(app) as client:
         response1 = await client.get('/')
         assert response1.status_code == 404

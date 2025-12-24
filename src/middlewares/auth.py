@@ -13,7 +13,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import JSONResponse
 from starlette.types import ASGIApp
 
-from src.middlewares.fastapi.enums import ResponseMessages
+from middlewares.enums import ResponseMessages
 
 logger = logging.getLogger(__name__)
 

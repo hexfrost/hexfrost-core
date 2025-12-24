@@ -16,7 +16,7 @@ class TemporaryDatabaseConnector(DatabaseConnector):
         if not self._engine:
             s = self._settings
             if not s:
-                raise RuntimeError("Settings not available for TemporaryDatabaseConnector")
+                raise RuntimeError("Settings not set for TemporaryDatabaseConnector")
             db_host = s.POSTGRES_HOST
 
             from sqlalchemy.ext.asyncio import create_async_engine
@@ -27,18 +27,6 @@ class TemporaryDatabaseConnector(DatabaseConnector):
                 poolclass=NullPool,
             ).execution_options(schema_translate_map=self._schema_mapping)
         return self._engine
-
-
-@asynccontextmanager
-async def debug_client(app, app_path: str = "http://test"):
-    from httpx import ASGITransport, AsyncClient
-
-    async with AsyncClient(
-        transport=ASGITransport(app=app),
-        base_url=app_path,
-    ) as client:
-        yield client
-        pass
 
 
 @asynccontextmanager

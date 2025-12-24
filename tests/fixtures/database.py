@@ -17,7 +17,7 @@ def db_settings():
 
 @pytest.fixture(autouse=True, scope="session")
 async def temp_db(db_settings):
-    from src.testing import temporary_database
+    from testing.temporary_database import temporary_database
     from src.alchemy.models import BaseDatabaseModel
     async with temporary_database(settings=db_settings, base_model=BaseDatabaseModel):
         yield
