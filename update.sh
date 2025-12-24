@@ -1,9 +1,9 @@
 # git pull
 git add .
-echo "Adding changes completed."
+echo "\nAdding changes completed.\n"
 
 git commit -m "Quick save"
-echo "Commit completed."
+echo "\nCommit completed.\n"
 
 git push
-echo "Push completed."
+echo "\nPush completed.\n"
